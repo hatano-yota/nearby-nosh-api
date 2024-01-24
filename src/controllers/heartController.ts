@@ -35,3 +35,5 @@ router.delete('/:userId/:shopId', async (req: Request, res: Response) => {
   });
   res.json({ heart });
 });
+
+export default router;
