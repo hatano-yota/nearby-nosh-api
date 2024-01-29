@@ -66,3 +66,11 @@ model Ranking {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model OverallRanking {
+  id String @id @default(uuid())
+  shopId String
+  type String
+  position Int
+  updatedAt DateTime
+}
