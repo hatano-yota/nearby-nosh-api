@@ -10,10 +10,10 @@ router.get('/', async (req: Request, res: Response) => {
   res.json({ users });
 });
 
-// GET /users/:id
-router.get('/:id', async (req: Request, res: Response) => {
+// GET /users/:userId
+router.get('/:userId', async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
-    where: { id: req.params?.id },
+    where: { id: req.params?.userId },
   });
   res.json({ user });
 });
@@ -27,20 +27,20 @@ router.post('/', async (req: Request, res: Response) => {
   res.json({ user });
 });
 
-// PUT /users/:id
-router.put('/:id', async (req: Request, res: Response) => {
+// PUT /users/:userId
+router.put('/:userId', async (req: Request, res: Response) => {
   const { name, email } = req.body;
   const user = await prisma.user.update({
-    where: { id: req.params?.id },
+    where: { id: req.params?.userId },
     data: { name, email },
   });
   res.json({ user });
 });
 
-// DELETE /users/:id
-router.delete('/:id', async (req: Request, res: Response) => {
+// DELETE /users/:userId
+router.delete('/:userId', async (req: Request, res: Response) => {
   const user = await prisma.user.delete({
-    where: { id: req.params?.id },
+    where: { id: req.params?.userId },
   });
   res.json({ user });
 });
