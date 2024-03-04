@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/users', userController);
-app.use('/heart', heartController);
+app.use('/users', heartController);
 app.use('/users', rankingController);
 
 app.get('/', (req, res) => {
