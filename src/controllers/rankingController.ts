@@ -5,15 +5,15 @@ const prisma = new PrismaClient();
 const router = Router();
 
 // GET /users/:userId/ranking
-router.get('/', async (req: Request, res: Response) => {
+router.get('/:userId/ranking', async (req: Request, res: Response) => {
   const rankings = await prisma.ranking.findMany({
     where: { userId: req.params.userId },
   });
-  res.json(rankings);
+  res.json({ rankings });
 });
 
 // POST /users/:userId/ranking/:type
-router.post('/:type', async (req: Request, res: Response) => {
+router.post('/:userId/ranking/:type', async (req: Request, res: Response) => {
   const { shopId, position } = req.body;
   const ranking = await prisma.ranking.create({
     data: { type: req.params.type, userId: req.params.userId, shopId, position },
@@ -22,7 +22,7 @@ router.post('/:type', async (req: Request, res: Response) => {
 });
 
 // PUT /users/:userId/ranking/:type/:rankingId
-router.put('/:type/:rankingId', async (req: Request, res: Response) => {
+router.put('/:userId/ranking/:type/:rankingId', async (req: Request, res: Response) => {
   const { shopId } = req.body;
   const ranking = await prisma.ranking.update({
     where: { id: req.params.rankingId },
@@ -32,7 +32,7 @@ router.put('/:type/:rankingId', async (req: Request, res: Response) => {
 });
 
 // Delete /users/:userId/ranking/:type/:rankingId
-router.delete('/:type/:rankingId', async (req: Request, res: Response) => {
+router.delete('/:userId/ranking/:type/:rankingId', async (req: Request, res: Response) => {
   const ranking = await prisma.ranking.delete({
     where: { id: req.params.rankingId },
   });
