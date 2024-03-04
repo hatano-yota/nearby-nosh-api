@@ -50,6 +50,27 @@ describe('heartController test', () => {
     });
   });
 
+  describe('GET /shops/:shopId/heart', () => {
+    test('response with success', async () => {
+      for (let i = 0; i < 3; i++) {
+        await prisma.user.create({
+          data: { id: `${i}`, name: `tester${i}`, email: `test${i}@gmail.com` },
+        });
+        await prisma.heart.create({
+          data: { id: `${i}`, userId: `${i}`, shopId: 'test-shop' },
+        });
+      }
+
+      const hearts = await prisma.heart.findMany({
+        where: { shopId: 'test-shop' },
+      });
+
+      const response = await supertest(app).get('/shops/test-shop/hearts');
+      expect(response.status).toBe(200);
+      expect(response.body.count).toEqual(hearts.length);
+    });
+  });
+
   describe('POST /users/:userId/hearts/:shopId', () => {
     test('response with success', async () => {
       await prisma.user.create({
