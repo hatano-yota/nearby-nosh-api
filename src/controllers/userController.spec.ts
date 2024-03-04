@@ -28,7 +28,7 @@ describe('userController test', () => {
     });
   });
 
-  describe('GET /users/:id', () => {
+  describe('GET /users/:userId', () => {
     test('response with success', async () => {
       const user = await prisma.user.create({
         data: { id: '1', name: 'user1', email: 'user1@example.com' },
@@ -53,7 +53,7 @@ describe('userController test', () => {
     });
   });
 
-  describe('PUT /users/:id', () => {
+  describe('PUT /users/:userId', () => {
     test('response with success', async () => {
       await prisma.user.create({ data: { id: '1', name: 'user1', email: 'user1@example.com' } });
 
@@ -69,7 +69,7 @@ describe('userController test', () => {
     });
   });
 
-  describe('DELETE /users/:id', () => {
+  describe('DELETE /users/:userId', () => {
     test('response with success', async () => {
       const user = await prisma.user.create({
         data: { id: '1', name: 'user1', email: 'user1@example.com' },
