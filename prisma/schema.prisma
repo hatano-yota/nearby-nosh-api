@@ -62,15 +62,16 @@ model Ranking {
   type     String
   userId   String
   shopId   String
+  comment  String?
   position Int
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model OverallRanking {
-  id String @id @default(uuid())
-  shopId String
-  type String
-  position Int
+  id        String   @id @default(uuid())
+  shopId    String
+  type      String
+  position  Int
   updatedAt DateTime
 }
