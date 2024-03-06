@@ -70,15 +70,21 @@ describe('rankingController test', () => {
           type: 'favorite1',
           userId: 'test-user',
           shopId: 'test-shop',
+          comment: 'test-test-test',
           position: 1,
         },
       });
 
-      const body = { shopId: 'updated-shop' };
+      const body = { shopId: 'updated-shop', comment: 'update comment', position: 2 };
       const response = await supertest(app).put('/users/test-user/ranking/favorite1/1').send(body);
 
       expect(response.status).toBe(200);
-      expect(response.body.ranking.shopId).toEqual(body.shopId);
+      expect(response.body.ranking).toEqual({
+        id: '1',
+        type: 'favorite1',
+        userId: 'test-user',
+        ...body,
+      });
 
       const after = await prisma.ranking.findUnique({ where: { id: '1' } });
       expect(after?.shopId).toEqual(body.shopId);
