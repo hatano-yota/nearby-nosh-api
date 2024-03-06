@@ -14,9 +14,9 @@ router.get('/:userId/ranking', async (req: Request, res: Response) => {
 
 // POST /users/:userId/ranking/:type
 router.post('/:userId/ranking/:type', async (req: Request, res: Response) => {
-  const { shopId, position } = req.body;
+  const { shopId, comment, position } = req.body;
   const ranking = await prisma.ranking.create({
-    data: { type: req.params.type, userId: req.params.userId, shopId, position },
+    data: { type: req.params.type, userId: req.params.userId, shopId, comment, position },
   });
   res.json({ ranking });
 });
