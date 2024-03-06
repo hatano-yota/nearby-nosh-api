@@ -14,20 +14,23 @@ router.get('/:userId/ranking', async (req: Request, res: Response) => {
 
 // POST /users/:userId/ranking/:type
 router.post('/:userId/ranking/:type', async (req: Request, res: Response) => {
-  const { shopId, position } = req.body;
+  const { shopId, comment, position } = req.body;
   const ranking = await prisma.ranking.create({
-    data: { type: req.params.type, userId: req.params.userId, shopId, position },
+    data: { type: req.params.type, userId: req.params.userId, shopId, comment, position },
   });
   res.json({ ranking });
 });
 
 // PUT /users/:userId/ranking/:type/:rankingId
 router.put('/:userId/ranking/:type/:rankingId', async (req: Request, res: Response) => {
-  const { shopId } = req.body;
+  const { shopId, comment, position } = req.body;
+  // TODO: ranking->updatedRankingへの変更を検討（これによりresponse.body.ranking->response.body.updatedRankingとなる）
   const ranking = await prisma.ranking.update({
     where: { id: req.params.rankingId },
-    data: { shopId },
+    data: { shopId, comment, position },
   });
+
+  // TODO: 同typeのpositionが重複した場合、自動で調整する仕様を検討
   res.json({ ranking });
 });
 
